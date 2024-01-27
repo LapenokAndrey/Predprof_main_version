@@ -1,0 +1,1 @@
+Functions, which can be useful, are "get_company_logo_yahoo", "get_stocks_yahoo", "get_info_yahoo", "get_png_of_graph", "show_data_of_companies_mpl", "show_data_of_company_mpl", "get_data_of_companies"

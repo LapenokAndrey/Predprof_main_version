@@ -83,8 +83,9 @@ def getExtension(url):
 
 
 # All available intervals in Yahoo
-intervals_yahoo = ["1d", "5d", "1mo", "3mo", "6mo", "1y", "2y", "5y", "10y", "ytd", "max"]
+intervals_yahoo = {'15 minutes': '15m', '30 minutes': '30m', '1 hour': '1h', '1 day': '1d', '5 days': '5d',
+                   '1 month': '1mo', '3 months': '3mo'}
 
 # It is obligatory for sqlite
-connection = sqlite3.connect('data/DB_finance.db')
+connection = sqlite3.connect('../data/DB_finance.db')
 cursor = connection.cursor()

@@ -1,10 +1,179 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ru" prefix="og: http://ogp.me/ns#">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+  <meta charset="utf-8">
+  <title>Тарифы</title>
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://bootstrap5.ru/css/docs.css">
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" href="https://bootstrap5.ru/img/favicons/apple-touch-icon.png" sizes="180x180">
+  <link rel="icon" href="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" sizes="16x16" type="image/png">
+  <link rel="manifest" href="https://bootstrap5.ru/img/favicons/manifest.json">
+  <link rel="mask-icon" href="https://bootstrap5.ru/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+  <link rel="icon" href="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png">
+  <meta name="theme-color" content="#7952b3">
+  <!-- Facebook -->
+  <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+  </style>
 </head>
+
 <body>
-$END$
-</body>
+
+  <nav class="navbar fixed-top navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="home.html">Pear Investing</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExample01">
+          <ul class="navbar-nav mr-auto mb-2">
+            <li class="nav-item active">
+              <a class="nav-link" href="home.html">Главная</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="rates.html">Тарифы</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-expanded="false">Выпадающий список</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form>
+            <input class="form-control" type="text" placeholder="Поиск" aria-label="Search">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 class="display-4">Ценообразование</h1>
+    <p class="lead">Мы готовы предложить Вам несколько стратегий в зависимости от Ваших целейи возможностей.</p>
+  </div>
+
+  <div class="container">
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+      <div class="col">
+        <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">"Халява приди!"</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ мес.</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Чистый рандом</li>
+            <li>Никаких алгоритмов</li>
+            <li>Поддержка по e-mail</li>
+          </ul>
+          <button type="button" class="btn btn-lg btn-block btn-outline-primary">Подпишитесь бесплатно</button>
+        </div>
+      </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">"Верни кошелёк маме"</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">$5 <small class="text-muted">/ мес.</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Стандартный алгоритм</li>
+            <li>Надежность</li>
+            <li>Приоритетная поддержка по e-mail</li>
+            <li>Доступ к справочному центру</li>
+          </ul>
+          <button type="button" class="btn btn-lg btn-block btn-primary">Начать</button>
+        </div>
+      </div>
+      </div>
+      <div class="col">
+        <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">"Я и сам своего рода инвестор..."</h4>
+        </div>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ мес.</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Усовершенствованный алгоритм</li>
+            <li>Гарантия</li>
+            <li>Поддержка по телефону и e-mail</li>
+            <li>Доступ к справочному центру</li>
+          </ul>
+          <button type="button" class="btn btn-lg btn-block btn-primary">Связаться с нами</button>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+      <div class="row">
+        <div class="col-12 col-md">
+          <img class="mb-2" src="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" alt="логотип bootstrap" width="24" height="24">
+          <small class="d-block mb-3 text-muted">&copy; 2024 Pear Investing</small>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Особенности</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="link-secondary" href="#">Прикольная штука</a></li>
+            <li><a class="link-secondary" href="#">Случайная особенность</a></li>
+            <li><a class="link-secondary" href="#">Особенность команды</a></li>
+            <li><a class="link-secondary" href="#">Материал для разработчиков</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>Ресурсы</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="link-secondary" href="#">Ресурс</a></li>
+            <li><a class="link-secondary" href="#">Название ресурса</a></li>
+            <li><a class="link-secondary" href="#">Другой ресурс</a></li>
+            <li><a class="link-secondary" href="#">Заключительный ресурс</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md">
+          <h5>О нас</h5>
+          <ul class="list-unstyled text-small">
+            <li><a class="link-secondary" href="#">Команда</a></li>
+            <li><a class="link-secondary" href="#">Местоположение</a></li>
+            <li><a class="link-secondary" href="#">Конфиденциальность</a></li>
+            <li><a class="link-secondary" href="#">Сроки</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div><script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179173139-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-179173139-1');
+  </script>
+  <!-- Yandex.Metrika counter --> <script type="text/javascript" > (function(m,e,t,r,i,k,a){ m[i]=m[i]||function(){ (m[i].a=m[i].a||[]).push(arguments) }; m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}) (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym"); ym(67718821, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true }); </script> <noscript><div><img src="https://mc.yandex.ru/watch/67718821" style="position:absolute; left:-9999px;" alt="" /></div></noscript> <!-- /Yandex.Metrika counter -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

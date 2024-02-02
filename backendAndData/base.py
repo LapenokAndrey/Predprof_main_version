@@ -1,3 +1,4 @@
+import sqdiff
 import sqlite3
 import requests
 import wikipedia
@@ -123,7 +124,7 @@ def moex_intervals_converter(func):
             kwargs['interval'] = INTERVALS_MOEX[kwargs['interval']]
 
         if 'interval' not in kwargs:
-            return None
+            kwargs['interval'] = INTERVALS_MOEX[STANDARD_INTERVAL]
 
         return func(*args, **kwargs)
 
@@ -136,7 +137,7 @@ def yahoo_intervals_converter(func):
             kwargs['interval'] = INTERVALS_YAHOO[kwargs['interval']]
 
         if 'interval' not in kwargs:
-            return None
+            kwargs['interval'] = INTERVALS_YAHOO[STANDARD_INTERVAL]
 
         return func(*args, **kwargs)
 
@@ -157,3 +158,7 @@ COMPANY_COLUMNS = ['id', 'name', 'ticker', 'sector', 'industry', 'exchange',
                    'is_available_yahoo', 'necessary_access_level']
 
 stocks = Market("shares/TQBR")
+
+STANDARD_START = datetime.datetime(2022, 1, 1)
+STANDARD_END = datetime.datetime(2024, 1, 1)
+STANDARD_INTERVAL = '1 month'

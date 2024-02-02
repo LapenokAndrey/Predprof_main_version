@@ -1,7 +1,21 @@
-import pandas
 from backendAndData.yahoo_functions import *
 from backendAndData.moex_functions import *
 from backendAndData.base import *
+
+
+def yahoo_or_moex(yahoo_func, moex_func):
+    def wrapper(func):
+        def decorator(*args, **kwargs):
+            company_type = get_type_of_company(ticker=kwargs['ticker'])
+            if company_type == 'yahoo':
+                return yahoo_func(**kwargs)
+
+            if company_type == 'MOEX':
+                return moex_func(**kwargs)
+
+            return None
+        return decorator
+    return wrapper
 
 
 @name_or_ticker
@@ -24,62 +38,68 @@ def get_type_of_company(ticker: str = None, **kwargs) -> str | None:
 
 @name_or_ticker
 @ticker_is_compulsory()
-def get_stocks(ticker: str = None, start: datetime.datetime = None,
-               end: datetime.datetime = None, interval: str = '1d', **kwargs) -> pandas.DataFrame | None:
-    company_type = get_type_of_company(ticker=ticker)
-    if company_type == 'yahoo':
-        return get_stocks_yahoo(ticker=ticker, start=start, end=end, interval=interval)
-
-    if company_type == 'MOEX':
-        return get_stocks_moex(ticker=ticker, start=start, end=end, interval=interval)
-
-    return None
+@yahoo_or_moex(get_stocks_yahoo, get_stocks_moex)
+def get_stocks(ticker: str = None, start: datetime.datetime = STANDARD_START,
+               end: datetime.datetime = STANDARD_END,
+               interval: str = STANDARD_INTERVAL, **kwargs) -> pandas.DataFrame | None: ...
 
 
 @name_or_ticker
 @ticker_is_compulsory()
-def get_info(ticker: str = None, **kwargs) -> dict | None:
-    company_type = get_type_of_company(ticker=ticker)
-    if company_type == 'yahoo':
-        return get_info_yahoo(ticker=ticker)
-
-    if company_type == 'MOEX':
-        return get_info_moex(ticker=ticker)
-
-    return None
+@yahoo_or_moex(get_info_yahoo, get_info_moex)
+def get_info(ticker: str = None, **kwargs) -> dict | None: ...
 
 
-def get_name_by_ticker(ticker: str = None, **kwargs) -> dict | None:
-    company_type = get_type_of_company(ticker=ticker)
-    if company_type == 'yahoo':
-        return get_name_by_ticker_yahoo(ticker=ticker)
-
-    if company_type == 'MOEX':
-        return get_name_by_ticker_moex(ticker=ticker)
-
-    return None
+@ticker_is_compulsory()
+@yahoo_or_moex(get_name_by_ticker_yahoo, get_name_by_ticker_moex)
+def get_name_by_ticker(ticker: str = None) -> dict | None: ...
 
 
 @name_or_ticker
 @ticker_is_compulsory()
-def get_stocks_list(ticker: str = None, start: datetime.datetime = None,
-                    end: datetime.datetime = None, interval: str = '1d', **kwargs) -> list[tuple] | None:
-    company_type = get_type_of_company(ticker=ticker)
-    if company_type == 'yahoo':
-        return get_stocks_list_yahoo(ticker=ticker, start=start, end=end, interval=interval)
-
-    if company_type == 'MOEX':
-        return get_stocks_list_moex(ticker=ticker, start=start, end=end, interval=interval)
-
-    return None
+@yahoo_or_moex(get_stocks_list_yahoo, get_stocks_list_moex)
+def get_stocks_list(ticker: str = None, start: datetime.datetime = STANDARD_START,
+                    end: datetime.datetime = STANDARD_END, interval: str = STANDARD_INTERVAL,
+                    **kwargs) -> list[tuple] | None: ...
 
 
 @name_or_ticker
 def get_company_logo(company: str = None, ticker: str = None) -> str:
     """Returns link to logo of company
     (You must write ticker or name of company like attribute)"""
-
     if company is None:
         company = get_name_by_ticker(ticker=ticker)
 
     return get_company_logo_raw(company + ' company')
+
+
+@name_or_ticker
+def get_description(company: str = None, ticker: str = None) -> str:
+    if company is None:
+        company = get_name_by_ticker(ticker=ticker)
+
+    return wikipedia.summary(company + ' company', sentences=3)
+
+
+@name_or_ticker
+@ticker_is_compulsory()
+@yahoo_or_moex(get_stocks_list_for_graph_yahoo, get_stocks_list_for_graph_moex)
+def get_stocks_list_for_graph(ticker: str = None, start: datetime.datetime = STANDARD_START,
+                              end: datetime.datetime = STANDARD_END,
+                              interval: str = STANDARD_INTERVAL, **kwargs) -> list[tuple] | None: ...
+
+
+@name_or_ticker
+@ticker_is_compulsory()
+@yahoo_or_moex(get_stocks_list_for_graph_line_yahoo, get_stocks_list_for_graph_line_moex)
+def get_stocks_list_for_graph_line(ticker: str = None, start: datetime.datetime = STANDARD_START,
+                                   end: datetime.datetime = STANDARD_END,
+                                   interval: str = STANDARD_INTERVAL, **kwargs) -> list[tuple] | None: ...
+
+
+@name_or_ticker
+@ticker_is_compulsory()
+@yahoo_or_moex(get_close_prices_list_yahoo, get_close_prices_list_moex)
+def get_close_prices_list(ticker: str = None, start: datetime.datetime = STANDARD_START,
+                          end: datetime.datetime = STANDARD_END,
+                          interval: str = STANDARD_INTERVAL, **kwargs) -> list[tuple] | None: ...

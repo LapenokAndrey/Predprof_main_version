@@ -34,10 +34,10 @@ def add_company_to_db(company: str = None, ticker: str = None, sector: str = Non
     """Add new company to DB to table where are all "available" companies"""
 
     cursor.execute("""
-        INSERT INTO Companies (name, ticker, sector, industry, exchange, is_available_yahoo, is_available_moex, start_of_available_period, end_of_available_period, necessary_access_level)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+        INSERT INTO Companies (name, ticker, sector, industry, exchange, is_available_yahoo, is_available_moex, necessary_access_level, logo)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
         """, (company, ticker, sector, industry, exchange, is_available_yahoo, is_available_moex,
-              necessary_access_level))
+              necessary_access_level, get_company_logo_raw(company + 'company')))
     connection.commit()
 
 
@@ -54,9 +54,9 @@ def get_company_dict(ticker: str = None) -> dict:
     return res
 
 
-@if_email_exists_only
+@if_ticker_exists_only
 def change_company_necessary_access_level(ticker: str = None, new_necessary_access_level: str = None) -> None:
-    cursor.execute("""UPDATE users SET password = ? WHERE email = ?""", (new_necessary_access_level, ticker))
+    cursor.execute("""UPDATE users SET password = ? WHERE ticker = ?""", (new_necessary_access_level, ticker))
     connection.commit()
 
 
@@ -113,3 +113,7 @@ def change_user_email(email: str = None, new_email: str = None) -> None:
 def change_user_password(email: str = None, new_password: str = None) -> None:
     cursor.execute("""UPDATE users SET password = ? WHERE email = ?""", (new_password, email))
     connection.commit()
+
+
+def get_logo_from_db(company: str = None) -> str:
+    return cursor.execute("""SELECT logo FROM companies WHERE name = ?""", (company,)).fetchone()[0]

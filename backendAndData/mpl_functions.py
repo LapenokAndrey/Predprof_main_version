@@ -1,6 +1,7 @@
 from backendAndData.yahoo_functions import *
 from backendAndData.moex_functions import *
 import mplfinance as mpf
+import datetime
 
 
 def show_stocks_of_company_mpl(company: str, start: datetime.datetime,

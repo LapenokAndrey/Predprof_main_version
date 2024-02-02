@@ -1,8 +1,5 @@
-import datetime
-from backendAndData.base import *
 import pandas as pd
-import requests
-import json
+from backendAndData.db_functions import *
 
 
 @name_or_ticker
@@ -25,8 +22,9 @@ def get_name_by_ticker_moex(ticker: str = None) -> str | None:
 @name_or_ticker
 @ticker_is_compulsory()
 @moex_intervals_converter
-def get_stocks_moex_raw(ticker: str = None, start: datetime.datetime = None,
-                    end: datetime.datetime = None, interval: str = None, **kwargs) -> pandas.DataFrame | None:
+def get_stocks_moex_raw(ticker: str = None, start: datetime.datetime = STANDARD_START,
+                        end: datetime.datetime = STANDARD_END,
+                        interval: str = STANDARD_INTERVAL, **kwargs) -> pandas.DataFrame | None:
     j = requests.get(
         f'http://iss.moex.com/iss/engines/stock/markets/shares/securities/{ticker}/candles.json?from={start.__str__()[:10]}&till={end.__str__()[:10]}&interval={interval}').json()
     data = [{k: r[i] for i, k in enumerate(j['candles']['columns'])} for r in j['candles']['data']]
@@ -56,8 +54,9 @@ def convert_moex_df_to_yahoo_format(df: pandas.DataFrame = None) -> pandas.DataF
 @name_or_ticker
 @ticker_is_compulsory()
 @moex_intervals_converter
-def get_stocks_moex(ticker: str = None, start: datetime.datetime = None,
-                    end: datetime.datetime = None, interval: str = None, **kwargs) -> pandas.DataFrame | None:
+def get_stocks_moex(ticker: str = None, start: datetime.datetime = STANDARD_START,
+                    end: datetime.datetime = STANDARD_END,
+                    interval: str = STANDARD_INTERVAL, **kwargs) -> pandas.DataFrame | None:
     return convert_moex_df_to_yahoo_format(df=get_stocks_moex_raw(ticker=ticker,
                                                                   start=start, end=end, interval=interval))
 
@@ -83,8 +82,9 @@ def is_company_available_moex(ticker: str = None, **kwargs) -> bool:
 @name_or_ticker
 @ticker_is_compulsory()
 @moex_intervals_converter
-def get_stocks_list_moex(ticker: str = None, start: datetime.datetime = None,
-                         end: datetime.datetime = None, interval: str = '1d', **kwargs) -> list[tuple] | None:
+def get_stocks_list_moex(ticker: str = None, start: datetime.datetime = STANDARD_START,
+                         end: datetime.datetime = STANDARD_END,
+                         interval: str = STANDARD_INTERVAL, **kwargs) -> list[tuple] | None:
     """Returns list of tuples of stock prices
     (time, open, high, low, close, volume, dividends)
     (You must write ticker or name of company like attribute)"""
@@ -97,3 +97,69 @@ def get_stocks_list_moex(ticker: str = None, start: datetime.datetime = None,
 
     return res
 
+
+@name_or_ticker
+@ticker_is_compulsory()
+@moex_intervals_converter
+def get_stocks_list_for_graph_moex(ticker: str = None, start: datetime.datetime = STANDARD_START,
+                                   end: datetime.datetime = STANDARD_END,
+                                   interval: str = STANDARD_INTERVAL, **kwargs) -> list[list] | None:
+    """Returns list of lists of stock prices
+    (time, low, open, close, high, volume, dividends)
+    (You must write ticker or name of company like attribute)"""
+
+    df = get_stocks_moex(ticker=ticker, start=start, end=end, interval=interval)
+    res = []
+
+    for row in df.itertuples():
+        res.append([row[0].__str__(), row[3], row[1], row[4], row[2]])
+
+    return res
+
+
+@name_or_ticker
+@ticker_is_compulsory()
+@moex_intervals_converter
+def get_stocks_list_for_graph_line_moex(ticker: str = None, start: datetime.datetime = STANDARD_START,
+                                        end: datetime.datetime = STANDARD_END,
+                                        interval: str = STANDARD_INTERVAL, **kwargs) -> list[list] | None:
+    """Returns list of lists of stock prices
+    (time, mean of start and close)
+    (You must write ticker or name of company like attribute)"""
+
+    df = get_stocks_moex(ticker=ticker, start=start, end=end, interval=interval)
+    res = []
+
+    for row in df.itertuples():
+        res.append([row[0].__str__(), (row[1] + row[4]) / 2])
+
+    return res
+
+
+@name_or_ticker
+@ticker_is_compulsory()
+@moex_intervals_converter
+def get_close_prices_list_moex(ticker: str = None, start: datetime.datetime = STANDARD_START,
+                               end: datetime.datetime = STANDARD_END,
+                               interval: str = STANDARD_INTERVAL, **kwargs) -> pandas.DataFrame | None:
+    """Returns list of close prices of stocks
+    (time, open, high, low, close, volume, dividends)
+    (You must write ticker or name of company like attribute)"""
+
+    res = get_stocks_list_moex(ticker=ticker, start=start, end=end, interval=interval)
+    res = [price[4] for price in res]
+    return res
+
+
+@name_or_ticker
+@ticker_is_compulsory()
+def add_company_to_db_moex(ticker: str = None, necessary_access_level: int = 1, **kwargs) -> None:
+    """Adds company ot DB (list of all available companies)
+    (You must write ticker of nam eof company like attribute)"""
+
+    if not is_company_available_moex(ticker=ticker):
+        return None
+
+    info = get_info_moex(ticker=ticker)
+    add_company_to_db(company=info['longName'], ticker=ticker,
+                      exchange='MOEX', is_available_moex=True, necessary_access_level=necessary_access_level)

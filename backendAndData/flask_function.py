@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from backendAndData.yahoo_functions import *
 from backendAndData.base import *
+from backendAndData.functions import *
 
 
 app = Flask(__name__, template_folder='../templates')
@@ -11,8 +12,8 @@ def company(name):
     ticker = get_ticker_by_name(name)
     candle_stocks = get_stocks_list_for_graph_yahoo(ticker=ticker)
     point_stocks = get_stocks_list_for_graph_line_yahoo(ticker=ticker)
-    kwargs = {'ticker': ticker, 'company_name': get_name_by_ticker_yahoo(ticker),
-              'logo': get_company_logo_yahoo(ticker=ticker), 'candle_stocks': candle_stocks,
+    kwargs = {'ticker': ticker, 'name': get_name_by_ticker(ticker),
+              'logo': get_company_logo(ticker=ticker), 'candle_stocks': candle_stocks,
               'point_stocks': point_stocks}
     return render_template("company.html", **kwargs)
 
@@ -21,7 +22,7 @@ def company(name):
 @app.route("/companies_list")
 def companies_list():
     companies = get_names_yahoo_available_companies()
-    kwargs = {'companies': [(name, get_company_logo_yahoo(name)) for name in companies]}
+    kwargs = {'companies': [(name, get_company_logo(name)) for name in companies]}
     return render_template("companies_list.html", **kwargs)
 
 
@@ -33,8 +34,8 @@ def companies_list_input():
     companies = get_names_yahoo_available_companies()
 
     kwargs = {'input_company': {'ticker': ticker, 'name': get_name_by_ticker_yahoo(ticker=ticker),
-                                'logo': get_company_logo_yahoo(ticker=ticker)},
-              'companies': [(name, get_company_logo_yahoo(name)) for name in companies]}
+                                'logo': get_company_logo(ticker=ticker)},
+              'companies': [(name, get_company_logo(company=name)) for name in companies]}
     return render_template("companies_list.html", **kwargs)
 
 

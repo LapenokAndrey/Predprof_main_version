@@ -15,7 +15,17 @@
   <link rel="icon" href="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png">
   <meta name="theme-color" content="#7952b3">
   <!-- Facebook -->
-  <style>
+
+      <style>
+      @font-face { font-family: SF; src: url('SFProDisplay-Regular.ttf'); }
+
+      body {
+          font-family: SF
+    }
+    </style>
+<style>
+
+
         .bd-placeholder-img {
           font-size: 1.125rem;
           text-anchor: middle;
@@ -30,60 +40,80 @@
             font-size: 3.5rem;
           }
         }
+
+       .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,199, 8, 1)' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+        }
+
+      .nav-link {
+            color: #ffc708
+        }
+
+
+  </style>
   </style>
 </head>
 
 <body>
+     <nav class="navbar navbar" style="background: #060424">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="home.html" style="color: #ffc708"><img src="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" width="40" height="40"></img>Торговый бот</a>
+     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation" style="border: 3px solid #ffc708">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-   <nav class="navbar fixed-top navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="home.html">Pear Investing</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <div class="collapse navbar-collapse" id="navbarsExample01">
+      <ul class="navbar-nav mr-auto mb-2">
+        <li class="nav-item active">
+          <a class="nav-link" aria-current="page" href="home.html">Главная</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="rates.html">Тарифы</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="companies_list.html">Компании</a>
+        </li>
+      </ul>
+      <form>
+        <input class="form-control" type="text" placeholder="Поиск" aria-label="Search">
+      </form>
+    </div>
+  </div>
+</nav>
 
-        <div class="collapse navbar-collapse" id="navbarsExample01">
-          <ul class="navbar-nav mr-auto mb-2">
-            <li class="nav-item active">
-              <a class="nav-link" href="home.html">Главная</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="rates.html">Тарифы</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-expanded="false">Выпадающий список</a>
-              <ul class="dropdown-menu" aria-labelledby="dropdown01">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
-          </ul>
-          <form>
-            <input class="form-control" type="text" placeholder="Поиск" aria-label="Search">
-          </form>
-        </div>
-      </div>
-    </nav>
    <div class="text-center">
        <h2>Другие компании</h2>
     <h3>Все компании, которые мы анализируем</h3>
 
-    <table class="text-center">
-
+    <table align="center">
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
             <tbody>
                 {% for row in companies %}
                     <tr>
-                        <td> {{ row[0] }} </td>
-                        <td> {{ row[1] }} </td>
+                        <td><a href={{"company/" + row[0]}}> {{ row[0] }}</a> </td>
+                        <td><img src={{row[1]}} width="72" > </td>
                     </tr>
+                {% endfor %}
             </tbody>
 
     </table>
    </div>
+
+ </div><script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-179173139-1');
+  </script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

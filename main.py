@@ -2,6 +2,9 @@ from backendAndData.mpl_functions import *
 from strategy.strategy import get_strategy, BasicStrategy
 import datetime
 from backendAndData.flask_function import app
+from backendAndData.moex_functions import *
+from backendAndData.base import *
+from backendAndData.functions import *
 
 
 if __name__ == '__main__':
@@ -23,4 +26,8 @@ if __name__ == '__main__':
     # show graph of levels of stick prices of plenty of companies
     # show_stocks_of_companies_mpl(['apple', 'amazon', 'microsoft'], start_time, end_time, '1mo')
 
+    # print(get_stocks_moex(ticker='YNDX', start=start_time, end=end_time, interval='1 month'))
+
     app.run()
+    # print(get_dataframe_of_moex_companies().columns)
+    # print(get_company_logo('apple'))

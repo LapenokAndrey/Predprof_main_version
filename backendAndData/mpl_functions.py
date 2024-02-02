@@ -1,4 +1,5 @@
 from backendAndData.yahoo_functions import *
+from backendAndData.moex_functions import *
 import mplfinance as mpf
 
 

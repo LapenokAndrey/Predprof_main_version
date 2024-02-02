@@ -16,6 +16,14 @@
   <meta name="theme-color" content="#7952b3">
   <!-- Facebook -->
 
+
+  <style>
+      @font-face { font-family: SF; src: url('SFProDisplay-Regular.ttf'); }
+
+      body {
+          font-family: SF
+    }
+    </style>
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -55,6 +63,7 @@
     body {
       text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
       box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+
     }
 
     .cover-container {
@@ -89,37 +98,47 @@
     }
 
 
-    h1, h2, h3, h4 {
-      color: #71989
+    nav-link {
+            color: #ffc708
+        }
+    .lead {
+      color: #ffc708
     }
+
+    body {
+          background-image: url("https://cdn.mos.cms.futurecdn.net/f746gxB9euy6hRsnMdsqaF-1024-80.jpg.webp");
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
   </style>
     <!-- Custom styles for this template -->
 </head>
 
-<body class="d-flex h-100 text-center text-white bg-dark">
+<body class="d-flex h-100 text-center"  style="background: #060424">
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
   <header class="mb-auto">
     <div>
-      <h3 class="float-md-left mb-0">Pear Investing</h3>
-      <h4>"Висит груша нельзя скушать..."</h4>
+
+      <h3 class="float-md-left mb-0" style="color: #ffc708"><img src="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" width="40" height="40"></img>Торговый бот</h3>
       <nav class="nav nav-masthead justify-content-center float-md-right">
-        <a class="nav-link active" aria-current="page" href="#">Главная</a>
-        <a class="nav-link" href="rates.html">Тарифы</a>
-        <a class="nav-link" href="#">Компании</a>
-        <a class="nav-link" href="login.html">Войти</a>
+        <a class="nav-link active" aria-current="page" style="color: #ffc708" href="home.html">Главная</a>
+        <a class="nav-link" style="color: #ffc708" href="rates.html">Тарифы</a>
+        <a class="nav-link" style="color: #ffc708" href="companies_list.html">Компании</a>
+        <a class="nav-link" style="color: #ffc708" href="login.html">Войти</a>
       </nav>
     </div>
   </header>
 
   <main class="px-3">
-    <h1>Добро пожаловать!</h1>
+    <h1 style="color: #ffffff">Добро пожаловать!</h1>
     <p class="lead">"Инвестиции это (не)просто"</p>
     <p class="lead">Наша цель - облегчить Ваше существование в этом тяжелом мире.</p>
 
     <p class="lead">
-      <a href="#" class="btn btn-lg btn-secondary font-weight-bold border-white bg-white">Подробнее</a>
+      <a href="companies_list.html" class="btn btn-outline-warning">Подробнее</a>
     </p>
   </main>
+
 
   <footer class="mt-auto text-white-50">
     <p>Торговый бот, от <a href="https://vk.com/ly2sch" class="text-white">Л2Ш</a>.</p>

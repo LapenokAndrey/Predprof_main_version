@@ -29,14 +29,14 @@ def if_ticker_exists_only(func):
 
 
 def add_company_to_db(company: str = None, ticker: str = None, sector: str = None, industry: str = None,
-                      exchange: str = None, is_available_yahoo: bool = False,
+                      exchange: str = None, is_available_yahoo: bool = False, is_available_moex: bool = False,
                       necessary_access_level: int = 0) -> None:
     """Add new company to DB to table where are all "available" companies"""
 
     cursor.execute("""
-        INSERT INTO Companies (name, ticker, sector, industry, exchange, is_available_yahoo, start_of_available_period, end_of_available_period, necessary_access_level)
-        VALUES (?, ?, ?, ?, ?, ?, ?);
-        """, (company, ticker, sector, industry, exchange, is_available_yahoo,
+        INSERT INTO Companies (name, ticker, sector, industry, exchange, is_available_yahoo, is_available_moex, start_of_available_period, end_of_available_period, necessary_access_level)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+        """, (company, ticker, sector, industry, exchange, is_available_yahoo, is_available_moex,
               necessary_access_level))
     connection.commit()
 

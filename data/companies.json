@@ -1,1 +1,1 @@
-{"main_data": {"company_number": 0, "ticker_list": [], "names_by_tickers": {}}, "tickers": {}}
+{"main_data": {"company_number": 1, "ticker_list": ["AAPL"], "names_by_tickers": {"AAPL": "Apple Inc."}}, "tickers": {"AAPL": {"1 hour": [], "1 day": [{"filename": "1707397974.7768223.csv", "path": "data/AAPL/1 day/1707397974.7768223.csv", "min_date": "2010-01-04 00:00:00", "max_date": "2024-02-07 00:00:00"}], "1 month": []}}}

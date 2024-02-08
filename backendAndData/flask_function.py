@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
-from backendAndData.functions import *
+from backendAndData.online_functions import *
 from strategy.strategy import *
+from backendAndData.data_functions import *
 
 
 app = Flask(__name__, template_folder='../templates')
@@ -8,31 +9,34 @@ app = Flask(__name__, template_folder='../templates')
 
 @app.route("/company/<string:name>")
 def company(name):
-    if not is_company_available(company=name):
+    if not is_company_available_online(company=name):
         return None
 
     start_time = datetime.datetime(2010, 1, 1)
     end_time = datetime.datetime.now()
 
     ticker = get_ticker_by_name(name)
-    candle_stocks = get_stocks_list_for_graph(ticker=ticker, start=start_time, end=end_time, interval='1 day')
-    point_stocks = get_stocks_list_for_graph_line(ticker=ticker, start=start_time, end=end_time, interval='1 day')
-    future_price = get_strategy(get_close_prices_list(
-        ticker=ticker, start=start_time, end=end_time, interval='1 day')).predict()
+    df = get_stocks(ticker=ticker, start=start_time, end=end_time, interval='1 day')
+    candle_stocks = convert_df_to_list_for_graph(df)
+    point_stocks = convert_df_to_list_for_graph_line(df)
     current_price = point_stocks[-1][1]
-    difference = future_price - current_price
 
-    kwargs = {'ticker': ticker, 'name': get_name_by_ticker(ticker=ticker),
-              'logo': get_company_logo(ticker=ticker), 'candle_stocks': candle_stocks,
-              'point_stocks': point_stocks, 'future_price': future_price, 'current_price': current_price,
-              'difference': difference, 'description': get_description(company=name)}
+    history = convert_df_to_close_prices_list(df)
+
+    strategy_1 = get_strategy(history).predict_percent1()
+    strategy_2 = mr_strategy(history, min(30, len(history)), min(90, len(history)), 5)
+
+    kwargs = {'ticker': ticker, 'name': get_name_by_ticker_online(ticker=ticker),
+              'logo': get_company_logo_online(ticker=ticker), 'candle_stocks': candle_stocks,
+              'point_stocks': point_stocks, 'strategy_1': strategy_1, 'strategy_2': strategy_2,
+              'current_price': current_price, 'description': get_description_db(company=name)}
     return render_template("company.html", **kwargs)
 
 
 @app.route("/companies")
 @app.route("/companies_list")
 def companies_list():
-    companies = get_names_yahoo_available_companies()
+    companies = get_names_available_companies(n=20)
     kwargs = {'companies': [(name, get_logo_from_db(company=name)) for name in companies]}
     return render_template("companies_list.html", **kwargs)
 
@@ -42,11 +46,11 @@ def companies_list():
 def companies_list_input():
     company_name = request.form['company']
     ticker = get_ticker_by_name(company_name)
-    companies = get_names_yahoo_available_companies()
+    companies = get_names_available_companies()
 
-    kwargs = {'input_company': {'ticker': ticker, 'name': get_name_by_ticker_yahoo(ticker=ticker),
-                                'logo': get_company_logo(ticker=ticker)},
-              'companies': [(name, get_company_logo(company=name)) for name in companies]}
+    kwargs = {'input_company': {'ticker': ticker, 'name': get_name_by_ticker(ticker=ticker),
+                                'logo': get_company_logo_online(ticker=ticker)},
+              'companies': [(name, get_company_logo_online(company=name)) for name in companies]}
     return render_template("companies_list.html", **kwargs)
 
 

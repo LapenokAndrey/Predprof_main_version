@@ -32,12 +32,16 @@ def add_company_to_db(company: str = None, ticker: str = None, sector: str = Non
                       exchange: str = None, is_available_yahoo: bool = False, is_available_moex: bool = False,
                       necessary_access_level: int = 0) -> None:
     """Add new company to DB to table where are all "available" companies"""
+    try:
+        description = wikipedia.summary(company + ' company', sentences=3)
+    except:
+        description = 'No data'
 
     cursor.execute("""
-        INSERT INTO Companies (name, ticker, sector, industry, exchange, is_available_yahoo, is_available_moex, necessary_access_level, logo)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+        INSERT INTO Companies (name, ticker, sector, industry, exchange, is_available_yahoo, is_available_moex, necessary_access_level, logo, description)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """, (company, ticker, sector, industry, exchange, is_available_yahoo, is_available_moex,
-              necessary_access_level, get_company_logo_raw(company + 'company')))
+              necessary_access_level, get_company_logo_raw(company + 'company'), description))
     connection.commit()
 
 
@@ -45,6 +49,14 @@ def add_company_to_db(company: str = None, ticker: str = None, sector: str = Non
 def get_company(ticker: str = None) -> list:
     res = cursor.execute("""SELECT * FROM companies WHERE ticker = ?""", (ticker,)).fetchone()
     return res
+
+
+@if_ticker_exists_only
+def get_description_db(ticker: str = None):
+    res = cursor.execute("""SELECT description FROM companies WHERE ticker = ?""", (ticker,)).fetchone()
+    if res is None:
+        return None
+    return res[0]
 
 
 @if_ticker_exists_only
@@ -60,9 +72,9 @@ def change_company_necessary_access_level(ticker: str = None, new_necessary_acce
     connection.commit()
 
 
-def get_names_yahoo_available_companies(n: int = 10) -> list[str]:
+def get_names_available_companies(n: int = 10) -> list[str]:
     res = cursor.execute("""
-        SELECT name FROM companies WHERE is_available_yahoo = true""").fetchall()
+        SELECT name FROM companies""").fetchall()
     random.shuffle(res)
     res = res[:n]
     return [company[0] for company in res]

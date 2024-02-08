@@ -8,7 +8,7 @@ def get_info_moex(ticker: str = None, **kwargs) -> dict | None:
     df = get_dataframe_of_moex_companies()
     df = df[df['SECID'] == ticker]
     data = {'ticker': df.iloc[0]['SECID'], 'longName': df.iloc[0]['SHORTNAME'],
-            'exchange': 'MOEX'}
+            'exchange': 'MOEX', 'sector': None, 'industry': None}
     return data
 
 
@@ -61,94 +61,13 @@ def get_stocks_moex(ticker: str = None, start: datetime.datetime = STANDARD_STAR
                                                                   start=start, end=end, interval=interval))
 
 
-def is_company_available_moex_by_name(company: str = None, **kwargs) -> bool:
-    """Returns True, if Yahoo is able to process this company, else False
-     (You must write ticker or name of company like attribute)"""
-    ticker = get_ticker_by_name_moex(company=company)
-    if ticker is not None:
-        return True
-    return False
-
-
 @name_or_ticker
-@ticker_is_compulsory()
+@ticker_is_compulsory(default=False)
 def is_company_available_moex(ticker: str = None, **kwargs) -> bool:
     """Returns True, if Yahoo is able to process this company, else False
      (You must write ticker or name of company like attribute)"""
 
     return ticker in get_dataframe_of_moex_companies()['SECID'].values
-
-
-@name_or_ticker
-@ticker_is_compulsory()
-@moex_intervals_converter
-def get_stocks_list_moex(ticker: str = None, start: datetime.datetime = STANDARD_START,
-                         end: datetime.datetime = STANDARD_END,
-                         interval: str = STANDARD_INTERVAL, **kwargs) -> list[tuple] | None:
-    """Returns list of tuples of stock prices
-    (time, open, high, low, close, volume, dividends)
-    (You must write ticker or name of company like attribute)"""
-
-    df = get_stocks_moex(ticker=ticker, start=start, end=end, interval=interval)
-    res = []
-
-    for row in df.itertuples(name='Candle'):
-        res.append(row)
-
-    return res
-
-
-@name_or_ticker
-@ticker_is_compulsory()
-@moex_intervals_converter
-def get_stocks_list_for_graph_moex(ticker: str = None, start: datetime.datetime = STANDARD_START,
-                                   end: datetime.datetime = STANDARD_END,
-                                   interval: str = STANDARD_INTERVAL, **kwargs) -> list[list] | None:
-    """Returns list of lists of stock prices
-    (time, low, open, close, high, volume, dividends)
-    (You must write ticker or name of company like attribute)"""
-
-    df = get_stocks_moex(ticker=ticker, start=start, end=end, interval=interval)
-    res = []
-
-    for row in df.itertuples():
-        res.append([row[0].__str__(), row[3], row[1], row[4], row[2]])
-
-    return res
-
-
-@name_or_ticker
-@ticker_is_compulsory()
-@moex_intervals_converter
-def get_stocks_list_for_graph_line_moex(ticker: str = None, start: datetime.datetime = STANDARD_START,
-                                        end: datetime.datetime = STANDARD_END,
-                                        interval: str = STANDARD_INTERVAL, **kwargs) -> list[list] | None:
-    """Returns list of lists of stock prices
-    (time, mean of start and close)
-    (You must write ticker or name of company like attribute)"""
-
-    df = get_stocks_moex(ticker=ticker, start=start, end=end, interval=interval)
-    res = []
-
-    for row in df.itertuples():
-        res.append([row[0].__str__(), (row[1] + row[4]) / 2])
-
-    return res
-
-
-@name_or_ticker
-@ticker_is_compulsory()
-@moex_intervals_converter
-def get_close_prices_list_moex(ticker: str = None, start: datetime.datetime = STANDARD_START,
-                               end: datetime.datetime = STANDARD_END,
-                               interval: str = STANDARD_INTERVAL, **kwargs) -> pandas.DataFrame | None:
-    """Returns list of close prices of stocks
-    (time, open, high, low, close, volume, dividends)
-    (You must write ticker or name of company like attribute)"""
-
-    res = get_stocks_list_moex(ticker=ticker, start=start, end=end, interval=interval)
-    res = [price[4] for price in res]
-    return res
 
 
 @name_or_ticker

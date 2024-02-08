@@ -5,15 +5,6 @@ from backendAndData.db_functions import *
 """Here are all functions, which are related to Yahoo"""
 
 
-def is_company_available_yahoo_by_name(company: str = None, **kwargs) -> bool:
-    """Returns True, if Yahoo is able to process this company, else False
-     (You must write ticker or name of company like attribute)"""
-    ticker = get_ticker_by_name_yahoo(company=company)
-    if ticker is not None:
-        return True
-    return False
-
-
 @name_or_ticker
 @ticker_is_compulsory()
 def is_company_available_yahoo(ticker: str = None, **kwargs) -> bool:
@@ -53,78 +44,6 @@ def get_stocks_yahoo(ticker: str = None, start: datetime.datetime = STANDARD_STA
     (You must write ticker or name of company like attribute)"""
 
     return yfinance.Ticker(ticker).history(start=start, end=end, interval=interval)
-
-
-@name_or_ticker
-@ticker_is_compulsory()
-@yahoo_intervals_converter
-def get_stocks_list_yahoo(ticker: str = None, start: datetime.datetime = STANDARD_START,
-                          end: datetime.datetime = STANDARD_END,
-                          interval: str = STANDARD_INTERVAL, **kwargs) -> list[tuple] | None:
-    """Returns list of tuples of stock prices
-    (time, open, high, low, close, volume, dividends)
-    (You must write ticker or name of company like attribute)"""
-
-    df = get_stocks_yahoo(ticker=ticker, start=start, end=end, interval=interval)
-    res = []
-
-    for row in df.itertuples(name='Candle'):
-        res.append(row)
-
-    return res
-
-
-@name_or_ticker
-@ticker_is_compulsory()
-@yahoo_intervals_converter
-def get_stocks_list_for_graph_yahoo(ticker: str = None, start: datetime.datetime = STANDARD_START,
-                                    end: datetime.datetime = STANDARD_END,
-                                    interval: str = STANDARD_INTERVAL, **kwargs) -> list[list] | None:
-    """Returns list of lists of stock prices
-    (time, low, open, close, high, volume, dividends)
-    (You must write ticker or name of company like attribute)"""
-
-    df = get_stocks_yahoo(ticker=ticker, start=start, end=end, interval=interval)
-    res = []
-
-    for row in df.itertuples():
-        res.append([row[0].__str__(), row[3], row[1], row[4], row[2]])
-
-    return res
-
-
-@name_or_ticker
-@ticker_is_compulsory()
-@yahoo_intervals_converter
-def get_stocks_list_for_graph_line_yahoo(ticker: str = None, start: datetime.datetime = STANDARD_START,
-                                         end: datetime.datetime = STANDARD_END,
-                                         interval: str = STANDARD_INTERVAL, **kwargs) -> list[list] | None:
-    """Returns list of lists of stock prices
-    (time, mean of start and close)
-    (You must write ticker or name of company like attribute)"""
-
-    df = get_stocks_yahoo(ticker=ticker, start=start, end=end, interval=interval)
-    res = []
-
-    for row in df.itertuples():
-        res.append([row[0].__str__(), (row[1] + row[4]) / 2])
-
-    return res
-
-
-@name_or_ticker
-@ticker_is_compulsory()
-@yahoo_intervals_converter
-def get_close_prices_list_yahoo(ticker: str = None, start: datetime.datetime = STANDARD_START,
-                                end: datetime.datetime = STANDARD_END,
-                                interval: str = STANDARD_INTERVAL, **kwargs) -> pandas.DataFrame | None:
-    """Returns list of close prices of stocks
-    (time, open, high, low, close, volume, dividends)
-    (You must write ticker or name of company like attribute)"""
-
-    res = get_stocks_list_yahoo(ticker=ticker, start=start, end=end, interval=interval)
-    res = [price[4] for price in res]
-    return res
 
 
 @yahoo_intervals_converter

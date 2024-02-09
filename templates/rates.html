@@ -18,8 +18,10 @@
 
 
     <style>
+      @font-face { font-family: SF; src: url('SFProDisplay-Regular.ttf'); }
+
       body {
-          font-family: SF
+          font-family: trebuchet ms
     }
     </style>
   <style>
@@ -54,7 +56,7 @@
 
  <nav class="navbar navbar" style="background: #060424">
   <div class="container-fluid">
-    <a class="navbar-brand" href="home" style="color: #ffc708"><img src="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" width="40" height="40"></img>Торговый бот</a>
+    <a class="navbar-brand" href="../home/{{user}}" style="color: #ffc708"><img src="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" width="40" height="40"></img>Торговый бот</a>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation" style="border: 3px solid #ffc708">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -62,117 +64,63 @@
     <div class="collapse navbar-collapse" id="navbarsExample01">
       <ul class="navbar-nav mr-auto mb-2">
         <li class="nav-item active">
-          <a class="nav-link" aria-current="page" href="home">Главная</a>
+          <a class="nav-link" aria-current="page" href="../home/{{user}}">Главная</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="rates">Тарифы</a>
+          <a class="nav-link" href="../rates/{{user}}">Тарифы</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="companies_list">Компании</a>
+          <a class="nav-link" href="../companies/{{user}}">Компании</a>
         </li>
       </ul>
-      <form>
-        <input class="form-control" type="text" placeholder="Поиск" aria-label="Search">
-      </form>
     </div>
   </div>
 </nav>
 
   <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-4">Тарифы</h1>
-    <p class="lead">Мы готовы предложить Вам несколько стратегий в зависимости от Ваших целейи возможностей.</p>
+    <p class="lead">Мы готовы предложить Вам несколько тарифов в зависимости от Ваших целей и возможностей.</p>
   </div>
 
   <div class="container">
-    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+    <div class="row row-cols-1 row-cols-md-2 mb-2 text-center">
+
       <div class="col">
         <div class="card mb-4 shadow-sm">
         <div class="card-header">
-          <h4 class="my-0 font-weight-normal">"Халява приди!"</h4>
-        </div>
-        <div class="card-body">
-          <h1 class="card-title pricing-card-title">$0 <small class="text-muted">/ мес.</small></h1>
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>Чистый рандом</li>
-            <li>Удача</li>
-            <li>Никаких гарантий</li>
-            <li>Поддержка по e-mail</li>
-          </ul>
-          <button type="button" class="btn btn-outline-warning">Подпишитесь бесплатно</button>
-        </div>
-      </div>
-      </div>
-      <div class="col">
-        <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal">"Верни кошелёк маме"</h4>
+          <h4 class="my-0 font-weight-normal">"Based"</h4>
         </div>
         <div class="card-body">
           <h1 class="card-title pricing-card-title">$5 <small class="text-muted">/ мес.</small></h1>
           <ul class="list-unstyled mt-3 mb-4">
             <li>Стандартный алгоритм</li>
-            <li>Надежность</li>
-            <li>Приоритетная поддержка по e-mail</li>
-            <li>Доступ к справочному центру</li>
-          </ul>
-          <button type="button" class="btn btn-outline-warning">Начать</button>
-        </div>
-      </div>
-      </div>
-      <div class="col">
-        <div class="card mb-4 shadow-sm">
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal">"Я и сам своего рода инвестор..."</h4>
-        </div>
-        <div class="card-body">
-          <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ мес.</small></h1>
-          <ul class="list-unstyled mt-3 mb-4">
-            <li>Усовершенствованный алгоритм</li>
-            <li>Гарантия</li>
-            <li>Поддержка по телефону и e-mail</li>
+            <li>Поддержка по e-mail</li>
             <li>Доступ к справочному центру</li>
           </ul>
           <button type="button" class="btn btn-outline-warning">Связаться с нами</button>
         </div>
       </div>
       </div>
-    </div>
-
-    <footer class="pt-4 my-md-5 pt-md-5 border-top">
-      <div class="row">
-        <div class="col-12 col-md">
-          <img class="mb-2" src="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" alt="логотип bootstrap" width="24" height="24">
-          <small class="d-block mb-3 text-muted">&copy; 2024 Л2Ш</small>
+      <div class="col">
+        <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">"Advanced"</h4>
         </div>
-        <div class="col-6 col-md">
-          <h5>Особенности</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="link-secondary" href="#">Прикольная штука</a></li>
-            <li><a class="link-secondary" href="#">Случайная особенность</a></li>
-            <li><a class="link-secondary" href="#">Особенность команды</a></li>
-            <li><a class="link-secondary" href="#">Материал для разработчиков</a></li>
+        <div class="card-body">
+          <h1 class="card-title pricing-card-title">$15 <small class="text-muted">/ мес.</small></h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Усовершенствованный алгоритм</li>
+            <li>Поддержка по телефону и e-mail</li>
+            <li>Надежность</li>
           </ul>
-        </div>
-        <div class="col-6 col-md">
-          <h5>Ресурсы</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="link-secondary" href="#">Ресурс</a></li>
-            <li><a class="link-secondary" href="#">Название ресурса</a></li>
-            <li><a class="link-secondary" href="#">Другой ресурс</a></li>
-            <li><a class="link-secondary" href="#">Заключительный ресурс</a></li>
-          </ul>
-        </div>
-        <div class="col-6 col-md">
-          <h5>О нас</h5>
-          <ul class="list-unstyled text-small">
-            <li><a class="link-secondary" href="#">Команда</a></li>
-            <li><a class="link-secondary" href="#">Местоположение</a></li>
-            <li><a class="link-secondary" href="#">Конфиденциальность</a></li>
-            <li><a class="link-secondary" href="#">Сроки</a></li>
-          </ul>
+          <button type="button" class="btn btn-outline-warning">Связаться с нами</button>
         </div>
       </div>
-    </footer>
+      </div>
+    </div>
+ <footer class="mt-auto text-white-50">
+    <p>Торговый бот, от <a href="https://vk.com/ly2sch" class="text-white">Л2Ш</a>.</p>
+  </footer>
   </div><script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script>

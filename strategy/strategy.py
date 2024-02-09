@@ -104,7 +104,6 @@ def mr_strategy(history, f, s, mx):
         if sgn0 != sgn1:
             revs.append((i, sgn1))
     sgn = revs[len(revs) - 1][1]
-    print(savg, favg)
     if revs[len(revs) - 1][0] == n - 1:
         return 1.0 * sgn
     diff = min(abs(savg[n - 1] - favg[n - 1]) / mx, 1.0)

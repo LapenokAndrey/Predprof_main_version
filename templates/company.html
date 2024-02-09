@@ -10,17 +10,19 @@
 <link rel="stylesheet" href="https://bootstrap5.ru/css/docs.css">
 <!-- Favicons -->
 <link rel="apple-touch-icon" href="https://bootstrap5.ru/img/favicons/apple-touch-icon.png" sizes="180x180">
-<link rel="icon" href="https://bootstrap5.ru/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="https://bootstrap5.ru/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
-<link rel="manifest" href="https://bootstrap5.ru/img/favicons/manifest.json">
-<link rel="mask-icon" href="https://bootstrap5.ru/img/favicons/safari-pinned-tab.svg" color="#7952b3">
-<link rel="icon" href="https://bootstrap5.ru/img/favicons/favicon.ico">
+  <link rel="icon" href="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" sizes="16x16" type="image/png">
+  <link rel="manifest" href="https://bootstrap5.ru/img/favicons/manifest.json">
+  <link rel="mask-icon" href="https://bootstrap5.ru/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+  <link rel="icon" href="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png">
 <meta name="theme-color" content="#7952b3">
 <!-- Facebook -->
 
       <style>
+      @font-face { font-family: SF; src: url('SFProDisplay-Regular.ttf'); }
+
       body {
-          font-family: SF
+          font-family: trebuchet ms
     }
     </style>
     <style>
@@ -50,9 +52,10 @@
     <!-- Custom styles for this template -->
     <link href="/css/examples/dashboard.css" rel="stylesheet"></head>
 <body>
+
 <nav class="navbar navbar" style="background: #060424">
   <div class="container-fluid">
-    <a class="navbar-brand" href="home" style="color: #ffc708"><img src="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" width="40" height="40"></img>Торговый бот</a>
+    <a class="navbar-brand" href="../../home/{{user}}" style="color: #ffc708"><img src="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" width="40" height="40"></img>Торговый бот</a>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation" style="border: 3px solid #ffc708">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -60,18 +63,16 @@
     <div class="collapse navbar-collapse" id="navbarsExample01">
       <ul class="navbar-nav mr-auto mb-2">
         <li class="nav-item active">
-          <a class="nav-link" aria-current="page" href="../home">Главная</a>
+          <a class="nav-link" aria-current="page" href="../../home/{{user}}">Главная</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="../../rates/{{user}}">Тарифы</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../rates">Тарифы</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="../companies_list">Компании</a>
+          <a class="nav-link" href="../../companies_list/{{user}}">Компании</a>
         </li>
       </ul>
-      <form>
-        <input class="form-control" type="text" placeholder="Поиск" aria-label="Search">
-      </form>
     </div>
   </div>
 </nav>
@@ -83,89 +84,43 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#">
               <span data-feather="home"></span>
-              Dashboard
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="../../home/{{user}}">
               <span data-feather="file"></span>
-              Заказы
+              Главная
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="../../rates/{{user}}">
               <span data-feather="shopping-cart"></span>
-              Продукты
+              Тарифы
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="../../companies/{{user}}">
               <span data-feather="users"></span>
-              Клиенты
+              Компании
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="../../login">
               <span data-feather="bar-chart-2"></span>
-              Отчеты
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="layers"></span>
-              Integrations
+              Войти
             </a>
           </li>
         </ul>
 
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>Saved reports</span>
-          <a class="link-secondary" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle"></span>
-          </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Current month
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Last quarter
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Social engagement
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Year-end sale
-            </a>
-          </li>
-        </ul>
       </div>
     </nav>
 
-    <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+
+    {% if user_access_level >= access_level %}
+
+        <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">{{ name }}</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group mr-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-          </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <span data-feather="calendar"></span>
-            5 years
-          </button>
-        </div>
       </div>
 
       <div>
@@ -174,11 +129,68 @@
           {{ description }}
         </p>
       </div>
-
-
       <div>
         <h2>Графики</h2>
-      <head>
+
+        <form method="post">
+          <h4>Старт:
+            <input type="date"
+               id="startGraph"
+               name="startGraph"
+               min="2010-01-01T00:00"
+               max="2024-01-31T23:59"
+               step="1">
+        </h4>
+          <h4>Конец:
+            <input type="date"
+               id="endGraph"
+               name="endGraph"
+               min="2010-01-01T00:00"
+               max="2024-01-31T23:59"
+               step="1">
+        </h4>
+
+        <button class="btn btn-outline-warning" type="submit" style="">Подтвердить</button>
+
+        </form>
+
+        <div class="form-check form-switch">
+          <input onclick="myFunction()" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" style="background-color: #ffc708">
+          <label class="form-check-label" for="flexSwitchCheckDefault" onclick="myFunction()">Японские свечи</label>
+        </div>
+
+
+        <!-- Первый график -->
+        <div id="linearGraph">
+
+                   <head>
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+            <script type="text/javascript">
+              google.charts.load('current', {'packages':['corechart']});
+              google.charts.setOnLoadCallback(drawChart);
+
+              function drawChart() {
+              var arr = {{point_stocks | tojson}};
+                var data = google.visualization.arrayToDataTable(arr, true);
+
+                var options = {
+                  title: 'Линейный график',
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+                chart.draw(data, options);
+              }
+            </script>
+          </head>
+          <body>
+            <div id="curve_chart" style="width: 1280px; height: 720px"></div>
+          </body>
+        </div>
+
+        <!-- Свечной график -->
+        <div id="candlesGraph">
+          <head>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
           google.charts.load('current', {'packages':['corechart']});
@@ -203,39 +215,56 @@
         <div id="chart_div" style="width: 1280px; height: 720px;"></div>
       </body>
 
+        </div>
 
-         <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
-      var arr = {{point_stocks | tojson}};
-        var data = google.visualization.arrayToDataTable(arr, true);
+        <script>
+          function myFunction() {
+            var linear = document.getElementById("linearGraph");
+            var candles = document.getElementById("candlesGraph");
+            if (linear.style.display === "none") {
+              linear.style.display = "block";
+              candles.style.display = "none";
+            } else {
+              linear.style.display = "none";
+              candles.style.display = "block";
 
-        var options = {
-          title: 'Линейный график',
-        };
+            }
+          }
 
-        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+        </script>
 
-        chart.draw(data, options);
-      }
-    </script>
-  </head>
-  <body>
-    <div id="curve_chart" style="width: 1280px; height: 720px"></div>
-  </body>
+
+
       </div>
 
 
 
-  <h2>Прогноз</h2>
+  <h2>Прогнозы</h2>
   <div>
-    <h4>Текущая стоимость: {{ current_price }} $</h4>
-    <h4>Потенциальная стоимость: {{ future_price }} $</h4>
-    <h4>Потенциальная прибыль: {{ difference }} $</h4>
+    <h5>Текущая стоимость акции: {{ current_price }} $</h5>
+    <h4>Based стратегия</h4>
+    <p>
+      {% if strategy_1 > 0.333 %}
+        <h5 style="color: #008000">Совет: Покупать</h5>
+      {% elif strategy_1 < -0.333 %}
+        <h5 style="color: #FF0000">Совет: Продавать</h5>
+      {% else %}
+        <h5>Совет: Бездействовать</h5>
+    {% endif %}
+    </p>
+
+    <h4>Advanced стратегия</h4>
+    <p>
+      {% if strategy_2 > 0.333 %}
+        <h5 style="color: #008000">Совет: Покупать</h5>
+      {% elif strategy_2 < -0.333 %}
+        <h5 style="color: #FF0000">Совет: Продавать</h5>
+      {% else %}
+        <h5>Совет: Бездействовать</h5>
+    {% endif %}
+    </p>
+
   </div>
 
       <h2>Календарь стоимости акции</h2>
@@ -264,6 +293,16 @@
         </table>
       </div>
     </main>
+    {% else %}
+    <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <h2 align="center">Отказано в доступе</h2>
+      <h3 align="center">К сожалению, данная компания не входит в Ваш тарифный план.</h3>
+    </main>
+    {% endif %}
+
+
+
+
   </div>
 </div><script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
 <script>

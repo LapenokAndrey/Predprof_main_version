@@ -30,7 +30,15 @@ def get_info_yahoo(ticker: str = None, **kwargs) -> dict | None:
     """Returns dictionary of data about company
     (You mast write ticker or name of company like attribute)"""
 
-    return yfinance.Ticker(ticker).info
+    info = yfinance.Ticker(ticker).info
+
+    start_time = datetime.datetime(1950, 1, 1)
+    end_time = datetime.datetime.now()
+    df = get_stocks_yahoo(ticker=ticker,  start=start_time, end=end_time, interval='1 day').reset_index()
+
+    info['first_available_date'] = df.iloc[0]['Date'].to_pydatetime()
+    info['last_available_date'] = df.iloc[-1]['Date'].to_pydatetime()
+    return info
 
 
 @name_or_ticker
@@ -44,28 +52,3 @@ def get_stocks_yahoo(ticker: str = None, start: datetime.datetime = STANDARD_STA
     (You must write ticker or name of company like attribute)"""
 
     return yfinance.Ticker(ticker).history(start=start, end=end, interval=interval)
-
-
-@yahoo_intervals_converter
-def get_stocks_of_companies_yahoo(companies: list[str], start: datetime.datetime,
-                                  end: datetime.datetime, interval: str) -> dict:
-    """Returns dictionary, where keys are names of companies and values are data about companies from Yahoo"""
-
-    res = {}
-    for company in companies:
-        res[company] = get_stocks_yahoo(company=company, start=start, end=end, interval=interval)
-
-    return res
-
-
-@name_or_ticker
-@ticker_is_compulsory()
-def add_company_to_db_yahoo(ticker: str = None, necessary_access_level: int = 1, **kwargs) -> None:
-    """Adds company ot DB (list of all available companies)
-    (You must write ticker of nam eof company like attribute)"""
-
-    if not is_company_available_yahoo(ticker=ticker):
-        return None
-    info = get_info_yahoo(ticker=ticker)
-    add_company_to_db(company=info['longName'], ticker=ticker, sector=info['sector'], industry=info['industry'],
-                      exchange=info['exchange'], is_available_yahoo=True, necessary_access_level=necessary_access_level)

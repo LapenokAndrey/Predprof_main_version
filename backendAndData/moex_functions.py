@@ -7,8 +7,16 @@ from backendAndData.db_functions import *
 def get_info_moex(ticker: str = None, **kwargs) -> dict | None:
     df = get_dataframe_of_moex_companies()
     df = df[df['SECID'] == ticker]
+
+    start_time = datetime.datetime(1950, 1, 1)
+    end_time = datetime.datetime.now()
+    stocks = get_stocks_moex(ticker=ticker, start=start_time, end=end_time, interval='1 month').reset_index()
+
     data = {'ticker': df.iloc[0]['SECID'], 'longName': df.iloc[0]['SHORTNAME'],
-            'exchange': 'MOEX', 'sector': None, 'industry': None}
+            'exchange': 'MOEX', 'sector': None, 'industry': None,
+            'first_available_date': stocks.iloc[0]['Date'].to_pydatetime(),
+            'last_available_date': stocks.iloc[-1]['Date'].to_pydatetime()}
+
     return data
 
 
@@ -68,17 +76,3 @@ def is_company_available_moex(ticker: str = None, **kwargs) -> bool:
      (You must write ticker or name of company like attribute)"""
 
     return ticker in get_dataframe_of_moex_companies()['SECID'].values
-
-
-@name_or_ticker
-@ticker_is_compulsory()
-def add_company_to_db_moex(ticker: str = None, necessary_access_level: int = 1, **kwargs) -> None:
-    """Adds company ot DB (list of all available companies)
-    (You must write ticker of nam eof company like attribute)"""
-
-    if not is_company_available_moex(ticker=ticker):
-        return None
-
-    info = get_info_moex(ticker=ticker)
-    add_company_to_db(company=info['longName'], ticker=ticker,
-                      exchange='MOEX', is_available_moex=True, necessary_access_level=necessary_access_level)

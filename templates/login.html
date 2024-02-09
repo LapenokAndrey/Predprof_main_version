@@ -18,8 +18,10 @@
 
 
       <style>
+      @font-face { font-family: SF; src: url('SFProDisplay-Regular.ttf'); }
+
       body {
-          font-family: SF
+          font-family: trebuchet ms
     }
     </style>
     <style>
@@ -51,7 +53,6 @@
           padding-top: 40px;
           padding-bottom: 40px;
           background-color: #f5f5f5;
-          font-family: Izhitsa
         }
 
         .form-signin {
@@ -130,7 +131,7 @@
 
     <nav class="navbar fixed-top" style="background: #060424">
       <div class="container-fluid">
-    <a class="navbar-brand" href="home" style="color: #ffc708"><img src="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" width="40" height="40"></img>Торговый бот</a>
+    <a class="navbar-brand" href="../home/{{user}}" style="color: #ffc708"><img src="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" width="40" height="40"></img>Торговый бот</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation" style="border: 3px solid #ffc708" >
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -138,36 +139,37 @@
     <div class="collapse navbar-collapse" id="navbarsExample01">
       <ul class="navbar-nav mr-auto mb-2">
         <li class="nav-item active">
-          <a class="nav-link" aria-current="page" href="home">Главная</a>
+          <a class="nav-link" aria-current="page" href="../home/{{user}}">Главная</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="rates">Тарифы</a>
+          <a class="nav-link" href="../rates/{{user}}">Тарифы</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="companies_list">Компании</a>
+          <a class="nav-link" href="../companies/{{user}}">Компании</a>
         </li>
       </ul>
-      <form>
-        <input class="form-control" type="text" placeholder="Поиск" aria-label="Search">
-      </form>
     </div>
   </div>
     </nav>
 
-    <form class="form-signin">
+    <form class="form-signin" method="post">
       <img class="mb-4" src="https://cdn.icon-icons.com/icons2/1910/PNG/512/pear_121458.png" width="72" height="72">
-      <h1 class="h3 mb-3 font-weight-normal" align="center">Пожалуйста войдите</h1>
+      <h1 class="h3 mb-3 font-weight-normal" align="center" style="color: #ffffff">Вход</h1>
       <label for="inputEmail" class="sr-only">Email</label>
-      <input type="email" id="inputEmail" class="form-control" placeholder="Email" required="" autofocus="">
+      <input type="email" id="inputEmail" class="form-control"  name="email" placeholder="Email" required="" autofocus="">
       <label for="inputPassword" class="sr-only">Пароль</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required="">
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Запомнить меня
-        </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2024 Л2Ш</p>
+      <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Пароль" required="">
+        <div>
+            <p>
+                <a style="color: #ffffff">Еще нет аккаунта?</a>
+            </p>
+            <p>
+                <a href="registration" style="color: #ffc708">Зарегистрийтесь прямо сейчас</a>
+            </p>
+
+        </div>
+      <button class="btn btn-lg btn-block  btn-outline-warning" type="submit" style="">Войти</button>
+      <footer class="mt-5 mb-3" style="color: #ffffff">&copy; 2024 Л2Ш</footer>
     </form><script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script>

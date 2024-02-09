@@ -30,7 +30,8 @@ def if_ticker_exists_only(func):
 
 def add_company_to_db(company: str = None, ticker: str = None, sector: str = None, industry: str = None,
                       exchange: str = None, is_available_yahoo: bool = False, is_available_moex: bool = False,
-                      necessary_access_level: int = 0) -> None:
+                      necessary_access_level: int = 0, first_available_date: datetime.datetime = None,
+                      last_available_date: datetime.datetime = None) -> None:
     """Add new company to DB to table where are all "available" companies"""
     try:
         description = wikipedia.summary(company + ' company', sentences=3)
@@ -38,10 +39,11 @@ def add_company_to_db(company: str = None, ticker: str = None, sector: str = Non
         description = 'No data'
 
     cursor.execute("""
-        INSERT INTO Companies (name, ticker, sector, industry, exchange, is_available_yahoo, is_available_moex, necessary_access_level, logo, description)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        INSERT INTO Companies (name, ticker, sector, industry, exchange, is_available_yahoo, is_available_moex, necessary_access_level, logo, description, first_available_date, last_available_date)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """, (company, ticker, sector, industry, exchange, is_available_yahoo, is_available_moex,
-              necessary_access_level, get_company_logo_raw(company + 'company'), description))
+              necessary_access_level, get_company_logo_raw(company + 'company'), description,
+              first_available_date, last_available_date))
     connection.commit()
 
 
@@ -90,7 +92,7 @@ def is_user(email: str = None, password: str = None) -> bool:
 
 def add_user_to_db(email: str = None, password: str = None, access_level: int = 0) -> None:
     cursor.execute("""
-            INSERT INTO users (login, password, access)
+            INSERT INTO users (email, password, access_level)
             VALUES (?, ?, ?);
             """, (email, password, access_level))
     connection.commit()
@@ -127,5 +129,16 @@ def change_user_password(email: str = None, new_password: str = None) -> None:
     connection.commit()
 
 
-def get_logo_from_db(company: str = None) -> str:
-    return cursor.execute("""SELECT logo FROM companies WHERE name = ?""", (company,)).fetchone()[0]
+@name_or_ticker
+def get_logo_from_db(ticker: str = None, **kwargs) -> str:
+    return cursor.execute("""SELECT logo FROM companies WHERE ticker = ?""", (ticker,)).fetchone()[0]
+
+
+def is_email(email: str) -> bool:
+    user = cursor.execute("""
+            SELECT * FROM users WHERE email = ?""", (email,)).fetchone()
+
+    if user:
+        return True
+    return False
+

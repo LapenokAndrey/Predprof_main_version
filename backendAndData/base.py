@@ -48,9 +48,20 @@ def get_ticker_by_name_moex(company: str = None) -> str | None:
     return companies[companies['SHORTNAME'] == company_name].iloc[0]['SECID']
 
 
+def get_ticker_by_name_domestic(company: str = None) -> str | None:
+    ticker = cursor.execute("""SELECT ticker from companies WHERE name = ?""", (company,)).fetchone()
+    if ticker:
+        return ticker[0]
+    return None
+
+
 def get_ticker_by_name(company: str) -> str | None:
     """Returns ticker of company by name of this one or None, if there is not any company with given name.
     You can write not only official name, but unofficial as well"""
+
+    ticker = get_ticker_by_name_domestic(company=company)
+    if ticker is not None:
+        return ticker
 
     ticker = get_ticker_by_name_yahoo(company=company)
     if ticker is not None:
@@ -171,7 +182,8 @@ cursor = connection.cursor()
 
 USER_COLUMNS = ['id', 'email', 'password', 'access_level']
 COMPANY_COLUMNS = ['id', 'name', 'ticker', 'sector', 'industry', 'exchange',
-                   'is_available_yahoo', 'necessary_access_level']
+                   'is_available_yahoo', 'is_available_moex', 'necessary_access_level', 'logo', 'description',
+                   'first_available_date', 'last_available_date']
 
 stocks = Market("shares/TQBR")
 

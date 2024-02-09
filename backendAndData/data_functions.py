@@ -57,7 +57,9 @@ def add_company_domestic(ticker: str, one_hour_stocks: list[pandas.DataFrame] = 
         info = get_info_online(ticker=ticker)
         add_company_to_db(company=name, ticker=ticker, sector=info['sector'], industry=info['industry'],
                           exchange=info['exchange'], is_available_yahoo=is_company_available_yahoo(ticker=ticker),
-                          is_available_moex=is_company_available_moex(ticker=ticker))
+                          is_available_moex=is_company_available_moex(ticker=ticker),
+                          first_available_date=info['first_available_date'],
+                          last_available_date=info['last_available_date'])
 
     dump_json(json_data)
 
